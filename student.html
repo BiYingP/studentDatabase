@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add Students</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            function addStudent(){
+                var major = $('#major').value;
+                var URL = 'http://localhost:8080/addStudent';
+
+                //construct ajax request to localhost
+                $.ajax({
+                    type: 'POST',
+                    url: URL,
+                    data: $('#studentInfo').serialize(),
+                    success: function(msg){
+                        $('#result').html(msg);
+                    },
+                    error: function(){
+                        alert('Error contacting server!');
+                    }
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <h2>Add Students to Database</h2>
+        <form id="studentInfo">
+            <input type="text" name="studentID"  placeholder="Student ID"/>
+            <input type="text" name="firstName"  placeholder="First Name"/>
+            <input type="text" name="lastName"  placeholder="Last Name"/>
+            <input type="text" name = "DoB" placeholder="Date of Birth"/>
+            <select name="major">
+                <option value="CS">CS</option>
+                <option value="CE">CE</option>
+                <option value="IS">IS</option>
+                <option value="IT">IT</option>
+            </select>
+            <input type="button" onclick="addStudent()" value="Add Students"/>
+        </form>
+        <div id="result"></div>  
+
+    </body>
+</html>

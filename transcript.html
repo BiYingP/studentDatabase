@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Student Transcript</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            function getTranscript(form){
+                var s = form.studentOpts.value;
+                var t = form.termOpts.vaule;
+                var URL = "http://localhost:8080/getTranscript";
+                // construct ajax request to localhost
+                $.ajax({
+                    type:'GET',
+                    url: URL,
+                    data:{"studentID": s, "term": t},
+                    dataType: "html",
+                    success:function(msg){
+                        $("#result").html(msg);
+                    },
+                    error: function(){
+                        alert("Error!");
+                    }
+                });
+            }
+            
+        </script>
+        
+    </head>
+    <body>
+        <h2>Display a Student Transcript from Database</h2>
+        <form>
+            <select id="studentOpts">         
+            </select>
+            <select id="termOpts">
+            </select>
+            <input type="button" onclick="getTranscript(this.form)" value="Display Transcript"/>
+        </form>
+        <br>
+        <div id="result"></div>  
+
+    </body>
+</html>

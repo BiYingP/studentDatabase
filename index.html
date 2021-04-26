@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <title>CS275 Assignment 5</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>    
+        <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css"/>
+        
+        <script>
+    
+            function displayTable(){
+                //render table page
+                var URL = 'http://localhost:8080/table.html';	
+                //AJAX request to localhost
+                $.ajax({
+                    type: 'GET',
+                    url: URL,
+                    data: {},
+                    dataType: 'html',
+                    contentType:'application/json; charset=utf-8',
+                    success: function(msg){
+                        $('#content').html(msg);
+                    },
+                    error: function(){
+                        alert('Error: Can not reach server!');
+                    }
+                });
+            }
+            function displayTranscript(){
+    
+                var URL = 'http://localhost:8080/transcript';	
+
+                //Construct AJAX request to localhost
+                $.ajax({
+                    type: 'GET',
+                    url: URL,
+                    data: '{}',
+                    dataType: 'html',
+                    success: function(msg){
+                        $('#content').html(msg);
+                    },
+                    error: function(){
+                        alert('Error: Can not reach server!');
+                    }
+                });
+            }
+            
+            function displayStudent(){
+                
+                // render add student page
+                var URL = 'http://localhost:8080/student.html';
+                $.ajax({
+                type: 'GET',
+                url: URL,
+                contentType:'application/json; charset=utf-8',
+                data:'{}',
+                dataType:'html',
+                success: function(msg)
+                {
+                    $('#content').html(msg);
+                },
+                error: function(){
+                    alert('Error: Can not reach server!');
+                }
+                });
+
+            }
+            // get transcript 
+            function getTranscript(){
+                
+                var s = $('#studentOpts').val();
+                var t = $('#termOpts').val();
+                var obj = {'studentID':s, 'term':t};
+                var URL = 'http://localhost:8080/getTranscript';
+                
+                $.ajax({
+                    type:'GET',
+                    url: URL,
+                    data: obj,
+                    dataType: 'html',
+                    success: function(msg){
+                        $('#result').html(msg);
+                    },
+                    error: function(){
+                        alert('Error!');
+                    }
+                });
+            }
+            
+            function displayHome(){
+                
+                var URL = "http://localhost:8080/home.html";
+                // ajax request
+                $.ajax({
+                    type: "GET",
+                    url: URL,
+                    contentType:"application/json; charset=utf-8",
+                    data:"{}",
+                    dataType:"html",
+                    success: function(msg)
+                    {
+                        $("#content").html(msg);
+                    },
+                    error: function(xhr, ajaxOptions, thrownError){
+                        alert("Error: Can not reach server!");
+                    }
+                    });
+
+            }
+        </script>
+    </head>
+    <body>
+        <div data-role="panel" id="myPanel">   
+            <a herf="#" class="ui-btn" onclick = "displayHome()">Home</a>
+            <a herf="#" class="ui-btn" onclick = "displayTable()">Database Tables</a>
+            <a herf="#" class="ui-btn" onclick="displayTranscript()" >Student Transcript</a>
+            <a herf="#" class="ui-btn" onclick="displayStudent() ">Add Students</a>
+        </div>
+        
+        <div data-role="header" >
+            <a href="#myPanel" class="ui-btn ui-icon-bars ui-btn-icon-left">Menu</a>
+            <h1>CS275 Assignment 5</h1>
+            <div data-role="img">
+                <img src="drexel.jpg" alt="Drexel University" class="responsive" height="300px" width="100%">
+            </div>
+            <div id="content">
+                <h2>Instruction</h2>
+                <p>This Website provides a user three navigation from the left when clicking Menu. Database Table allows users select one of the 3 tables and display that table in the web page. Student Trancript allows users select student ID and term to query data from database, and display as a new table. Add Students allows users to add a new student information to database.
+                </p>
+            </div>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <h1>BiYing Pan</h1>
+        </div>
+    </body>
+</html>

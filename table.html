@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Database Table</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            function getTable(){
+                var opt = $('#option').val();
+                var URL = 'http://localhost:8080/getTable';
+                // contruct ajax request to localhost
+                $.ajax({
+                    type:'GET',
+                    url: URL,
+                    data:{"tableName": opt},
+                    dataType: 'html',
+                    success:function(msg){
+                        $("#result").html(msg);
+                    },
+                    error: function(){
+                        alert('Error!');
+                    }
+                });
+            }
+        </script>
+        
+    </head>
+    <body>
+        <h2>Display a Table from Database</h2>
+        <form>
+            <select id="option">
+                
+                <option value="students">Students</option>
+                <option value="course">Courses</option>
+                <option value="grades">Grades</option>
+                
+            </select>
+            <input type="button" onclick="getTable()" value="Display Table"/>
+        </form>
+        <br>
+        <div id="result"></div>  
+
+    </body>
+</html>
